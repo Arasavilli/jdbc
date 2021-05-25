@@ -1,0 +1,144 @@
+                                                  // creating table for Employee //
+use Employee;
+
+
+CREATE TABLE employee_details (
+emp_id int(11) NOT NULL AUTO_INCREMENT,
+empname varchar(45) NOT NULL,
+emp_desg varchar(45) NOT NULL,
+emp_age int(11) NOT NULL,
+sal int(100) NOT NULL,
+PRIMARY KEY(emp_id));
+select * from employee_details;
+
+                                               //java program for insertion of values//
+package demo1;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class Emp {
+
+	public static void main(String[] args)
+	{
+		String url="jdbc:mysql://localhost:3306/Employee";
+		  String username="root";
+		  String password="Pinky@1995";
+		  try
+		  {
+			  Connection conn=DriverManager.getConnection(url,username,password);
+			  if(conn !=null)
+			  {
+				  System.out.println("got connected");
+				  
+					 String sql="INSERT INTO employ(emp_id,empname,emp_desg,emp_age,sal) VALUES(?,?,?,?,?)";
+					 
+					  PreparedStatement stmt=conn.prepareStatement(sql);
+					  stmt.setString(1, "5");
+					  stmt.setString(2, "Kavya");
+					  stmt.setString(3, "associate");
+					  stmt.setString(4, "26");
+					  stmt.setInt(5, 7000);
+					  
+					  int rowsInserted=stmt.executeUpdate();
+					  if(rowsInserted>0)
+					  {
+						  System.out.println("inserted....");
+					  }
+					  else
+					  {
+						  System.out.println("insertion failed....");
+					  }
+					  conn.close();
+			  }
+			  else
+			  {
+				  System.out.println("dint connected");
+			  }
+			  conn.close();
+		  }
+		  catch(SQLException e)
+		  {
+			  e.printStackTrace();
+		  }
+}}
+
+
+                                                          //update operation//
+
+String sql="UPDATE employ SET sal=? WHERE empname=?";
+PreparedStatement stmt=conn.prepareStatement(sql);				  
+stmt.setInt(1, 7000);
+  stmt.setString(2, "Komal");
+
+ int rowsupdated = stmt.executeUpdate();
+  if(rowsupdated>0)
+{
+	  System.out.println("rows  updated!!!");
+  }
+	  else
+	   {
+	   System.out.println("denied...");
+	   }
+	   conn.close();
+  }			
+
+
+                                                     //updating based on salary//
+
+
+package demo1;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class Emp {
+
+	public static void main(String[] args)
+	{
+		// TODO Auto-generated method stub
+		String dburl="jdbc:mysql://localhost:3306/Employee";
+		  String username="root";
+		  String password="Pinky";
+		  try
+		  {
+			  Connection conn=DriverManager.getConnection(dburl,username,password);
+			  if(conn !=null)
+			  {
+				  System.out.println("got connected");
+				String sql="UPDATE employ SET emp_desg=? WHERE emp_age>?";
+				PreparedStatement stmt=conn.prepareStatement(sql);
+				  stmt.setString(1, "Analyst");
+				  stmt.setInt(2, 26);
+				  
+				   int rowsupdated = stmt.executeUpdate();
+				   if(rowsupdated>0)
+				   {
+					   System.out.println("updated!!!");
+				   }
+				   else
+				   {
+					   System.out.println("denied...");
+				   }
+				  conn.close();
+			  }
+	else
+	  {
+				  System.out.println("dint connected");
+			  }
+			  conn.close();
+		  }
+		  catch(SQLException e)
+		  {
+			  e.printStackTrace();
+		  }
+			  }	  
+}
+
+
+
+
